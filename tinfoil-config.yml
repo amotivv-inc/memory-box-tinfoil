@@ -1,21 +1,16 @@
-shim-version: v0.3.9@sha256:a45eb01f8e5fa3162b804821d53d8e8667a75940a9c1995f29265347efca8009
-cvm-version: 0.5.23
+shim-version: v0.3.12@sha256:b81f2295ae6750d61e94f810ce24077360001b6ec795d13643f3170df29e304d
+cvm-version: 0.6.5
 cpus: 2
 memory: 8192
 
 containers:
   - name: "memory-box"
-    image: ""
-    args:
-      - "-e"
-      - "OPENROUTER_API_KEY=$(sed -n 's/^OPENROUTER_API_KEY: *//p' /mnt/ramdisk/external-config.yml)"
-      - "-e"
-      - "TURBOPUFFER_API_KEY=$(sed -n 's/^TURBOPUFFER_API_KEY: *//p' /mnt/ramdisk/external-config.yml)"
-      - "-e"
-      - "API_KEY=$(sed -n 's/^API_KEY: *//p' /mnt/ramdisk/external-config.yml)"
-      - "ghcr.io/amotivv-inc/memory-box-go:latest@sha256:0f301afb6c97051be160e4e040e6736b6185f0cedeb634ca2fab8cfe9636f796"
+    image: "ghcr.io/amotivv-inc/memory-box-go:latest@sha256:0f301afb6c97051be160e4e040e6736b6185f0cedeb634ca2fab8cfe9636f796"
+    secrets:
+      - OPENROUTER_API_KEY
+      - TURBOPUFFER_API_KEY
+      - API_KEY
 
-# Shim configuration (adjust upstream-port and paths to match your container)
 shim:
   listen-port: 443
   upstream-port: 8080
